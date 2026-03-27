@@ -22,6 +22,14 @@ pip uninstall -r requirements.txt -y
 - [A Conceptual Overview of asyncio](https://docs.python.org/3/howto/a-conceptual-overview-of-asyncio.html)
 - [asyncio queues: Queue, PriorityQueue, LifoQueue](https://docs.python.org/3/library/asyncio-queue.html)
 
+## [Crawlee](https://github.com/apify/crawlee-python)
+
+- 没有记录被过滤掉的 `url`
+- 无法把数据追加到单一文件
+- 没有输出 `playwright` 所访问资源的 `url`
+- `block_requests()` 的参数 `url_patterns` 是区分大小写的
+- 封装地太好了，不好修改功能
+
 ### [Scrapy](https://github.com/scrapy/scrapy)
 
 - `settings = {"DEPTH_LIMIT": 1}` 会多爬取一层地址，无法只爬取起始地址
