@@ -17,6 +17,11 @@ pip freeze > requirements.txt
 pip uninstall -r requirements.txt -y
 ```
 
+## [asyncio](https://docs.python.org/3/library/asyncio.html)
+
+- [A Conceptual Overview of asyncio](https://docs.python.org/3/howto/a-conceptual-overview-of-asyncio.html)
+- [asyncio queues: Queue, PriorityQueue, LifoQueue](https://docs.python.org/3/library/asyncio-queue.html)
+
 ## [Beautiful Soup](https://www.crummy.com/software/BeautifulSoup/)
 
 - 当使用 `lxml-xml` 来解析损坏的 `XML` 文本时 (例如有些 `HTML` 文本), `beautifulsoup` 会令其恢复错误而非报错, 但 `lxml-xml` 的恢复功能会造成大量文本内容的丢失
