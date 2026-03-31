@@ -1,5 +1,10 @@
 # Web Crawling
 
+### [Crawl4AI](https://github.com/unclecode/crawl4ai)
+
+- `BestFirstCrawlingStrategy` 只根据 `url` 字符串来打分，从而确定爬取页面的顺序
+- 无法从 `playwright` 或 `patchright` 的报错中恢复，导致爬虫程序终止
+
 ### [Crawlee](https://github.com/apify/crawlee-python)
 
 - 没有记录被过滤掉的 `url`
