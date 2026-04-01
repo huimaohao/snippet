@@ -2,8 +2,9 @@
 
 ### [Crawl4AI](https://github.com/unclecode/crawl4ai)
 
-- `BestFirstCrawlingStrategy` 只根据 `url` 字符串来打分，从而确定爬取页面的顺序
 - 无法从 `playwright` 或 `patchright` 的报错中恢复，导致爬虫程序终止
+- `BestFirstCrawlingStrategy` 只根据 `url` 字符串来打分，从而确定爬取页面的顺序
+- `AdaptiveCrawler` 仍处在开发阶段，存在太多 `bug`，且文档不够详细
 
 ### [Crawlee](https://github.com/apify/crawlee-python)
 
