@@ -1,3 +1,15 @@
+"""
+
+``` Shell
+pip install crawl4ai
+
+# required by crawl4ai
+crawl4ai-setup
+crawl4ai-doctor
+```
+
+"""
+
 import os
 import asyncio
 
