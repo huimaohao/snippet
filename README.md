@@ -24,6 +24,14 @@ pip uninstall -r requirements.txt -y
 - 支持的解析器: `html.parser`、`lxml`、`lxml-xml` / `xml`、`html5lib`
 - 当使用 `lxml-xml` 来解析损坏的 `XML` 文本时 (例如有些 `HTML` 文本)，`beautifulsoup` 会令其恢复错误而非报错，但 `lxml-xml` 的恢复功能会造成大量文本内容的丢失
 
+### [Crawlee](https://github.com/apify/crawlee-python)
+
+- 没有记录被过滤掉的 `url`
+- 无法把数据追加到单一文件
+- 没有输出 `playwright` 所访问资源的 `url`
+- `block_requests()` 的参数 `url_patterns` 是区分大小写的
+- 封装地太好了，不好修改功能
+
 ### [html5lib](https://github.com/html5lib/html5lib-python)
 
 - 遵循 `WHATWG HTML Standard`
