@@ -19,6 +19,14 @@ pip freeze > requirements.txt
 pip uninstall -r requirements.txt -y
 ```
 
+### [Crawl4AI](https://github.com/unclecode/crawl4ai)
+
+- 依赖超级多的第三方库，导致花在安装环境上的时间超级多
+- 首先将网页转换成 `Markdown` 文本，然后在 `Markdown` 文本上进行爬虫操作
+- 无法从 `playwright` 或 `patchright` 的报错中恢复，导致爬虫程序终止
+- `BestFirstCrawlingStrategy` 只根据 `url` 字符串来打分，以此确定爬取页面的顺序
+- `AdaptiveCrawler` 仍处在开发阶段，存在太多 `bug`，且文档不够详细
+
 ### [Crawlee](https://github.com/apify/crawlee-python)
 
 - 没有记录被过滤掉的 `url`
