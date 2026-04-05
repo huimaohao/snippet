@@ -22,14 +22,12 @@ from scrapegraphai.utils import prettify_exec_info
 load_dotenv()
 
 
-def demo_1():
+def demo_SmartScraperGraph():
     # Define the configuration for the scraping pipeline
     graph_config = {
         "llm": {
-            "model": "ollama/llama3.2",
-            "temperature": 0,
-            "model_tokens": 8192,
-            "format": "json",
+            "model": "deepseek/deepseek-chat",
+            "api_key": os.getenv("DEEPSEEK_API_KEY"),
         },
         "verbose": True,
         "headless": False,
@@ -37,28 +35,28 @@ def demo_1():
 
     # Create the SmartScraperGraph instance
     smart_scraper_graph = SmartScraperGraph(
-        prompt="Find information about the founders and what the company does",
-        source="https://scrapegraphai.com/",
+        prompt="列出所有新闻或文章的标题和摘要",
+        source="https://www.nature.com",
         config=graph_config,
     )
 
     # Run the pipeline
     result = smart_scraper_graph.run()
-    print(json.dumps(result, indent=4))
+    print(json.dumps(result, indent=4, ensure_ascii=False))
 
     # Get detailed execution information
     graph_exec_info = smart_scraper_graph.get_execution_info()
     print(prettify_exec_info(graph_exec_info))
 
 
-def demo_2():
+def demo_SmartScraperGraph_with_schema():
     # Define the output schema
-    class Project(BaseModel):
-        title: str = Field(description="The title of the project")
-        description: str = Field(description="The description of the project")
+    class Article(BaseModel):
+        title: str = Field(description="The title")
+        abstract: str = Field(description="The abstract")
 
-    class Projects(BaseModel):
-        projects: List[Project]
+    class Articles(BaseModel):
+        articles: List[Article]
 
     # Configure the scraper with schema
     graph_config = {
@@ -72,14 +70,15 @@ def demo_2():
 
     # Create scraper with schema
     smart_scraper_graph = SmartScraperGraph(
-        prompt="List all the projects with their descriptions",
-        source="https://perinim.github.io/projects/",
-        schema=Projects,  # Add schema here
+        prompt="列出所有新闻或文章的标题和摘要",
+        source="https://www.nature.com",
+        schema=Articles,  # Add schema here
         config=graph_config,
     )
 
+    # Run the pipeline
     result = smart_scraper_graph.run()
-    print(json.dumps(result, indent=4))
+    print(json.dumps(result, indent=4, ensure_ascii=False))
 
     # Get detailed execution information
     graph_exec_info = smart_scraper_graph.get_execution_info()
@@ -87,5 +86,5 @@ def demo_2():
 
 
 if __name__ == "__main__":
-    demo_1()
-    demo_2()
+    demo_SmartScraperGraph()
+    demo_SmartScraperGraph_with_schema()
