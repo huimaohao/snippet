@@ -1,12 +1,6 @@
 # Web Crawling
 
-### [Crawl4AI](https://github.com/unclecode/crawl4ai)
-
-- 依赖超级多的第三方库，导致花在安装环境上的时间超级多
-- 首先将网页转换成 `Markdown` 文本，然后在 `Markdown` 文本上进行爬虫操作
-- 无法从 `playwright` 或 `patchright` 的报错中恢复，导致爬虫程序终止
-- `BestFirstCrawlingStrategy` 只根据 `url` 字符串来打分，以此确定爬取页面的顺序
-- `AdaptiveCrawler` 仍处在开发阶段，存在太多 `bug`，且文档不够详细
+## Old-school Crawler
 
 ### [Crawlee](https://github.com/apify/crawlee-python)
 
@@ -25,3 +19,28 @@
 - `scrapy-playwright` 设置为 `"PLAYWRIGHT_MAX_CONTEXTS": 1`，仍打开两个浏览器
 - `scrapy-playwright` 会导致 `asyncio` 报错 `assert f is self._write_fut`
 - `await page.wait_for_timeout(1000)` 好像除了这样，没有办法减慢打开网页的速度
+
+---
+
+## AI-powered Crawler
+
+### [Crawl4AI](https://github.com/unclecode/crawl4ai)
+
+- 依赖超级多的第三方库，导致花在安装环境上的时间超级多
+- 首先将网页转换成 `Markdown` 文本，然后在 `Markdown` 文本上进行爬虫操作
+- 无法从 `playwright` 或 `patchright` 的报错中恢复，导致爬虫程序终止
+- `BestFirstCrawlingStrategy` 只根据 `url` 字符串来打分，以此确定爬取页面的顺序
+- `AdaptiveCrawler` 仍处在开发阶段，存在太多 `bug`，且文档不够详细
+
+---
+
+## Reference
+
+### Old-school Crawler
+
+- [Crawlee](https://github.com/apify/crawlee-python)
+- [Scrapy](https://github.com/scrapy/scrapy)
+
+### AI-powered Crawler
+
+- [Crawl4AI](https://github.com/unclecode/crawl4ai)
