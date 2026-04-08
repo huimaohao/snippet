@@ -50,6 +50,17 @@
 
 ---
 
+## AI-powered Scraper
+
+### [ScrapeGraphAI](https://github.com/ScrapeGraphAI/Scrapegraph-ai)
+
+- `README.md` 中给出的关于 `scrapegraphai` 的文档链接无效，且刻意引导用户去使用 `scrapegraph-py`
+- `scrapegraphai.models.DeepSeek` 无法正常工作，只好改为调用 `langchain_openai.ChatOpenAI`
+- `BaseNode` 及其子类（例如 `FetchNode`、`ParseNode` 等）使用字符串中的表达式来表示其输入参数的配置
+- `SearchGraph` 的配置中，`max_results` 参数不起作用，`search_engine` 参数只有 `duckduckgo` 值起作用
+
+---
+
 ## Reference
 
 ### Http Client
@@ -75,3 +86,7 @@
 
 - [Patchright](https://github.com/Kaliiiiiiiiii-Vinyzu/patchright-python)
 - [Playwright](https://github.com/microsoft/playwright-python)
+
+### AI-powered Scraper
+
+- [ScrapeGraphAI](https://github.com/ScrapeGraphAI/Scrapegraph-ai)
