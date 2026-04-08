@@ -32,6 +32,11 @@
 - `BestFirstCrawlingStrategy` 只根据 `url` 字符串来打分，以此确定爬取页面的顺序
 - `AdaptiveCrawler` 仍处在开发阶段，存在太多 `bug`，且文档不够详细
 
+### [ScrapeGraphAI](https://github.com/ScrapeGraphAI/Scrapegraph-ai)
+
+- `README.md` 中给出的关于 `scrapegraphai` 的文档链接无效，且刻意引导用户去使用 `scrapegraph-py`
+- `DepthSearchGraph` 的配置中，`depth` 参数少爬取一层链接，`cache_path` 和 `schema` 参数不起作用
+
 ---
 
 ## Reference
@@ -44,3 +49,4 @@
 ### AI-powered Crawler
 
 - [Crawl4AI](https://github.com/unclecode/crawl4ai)
+- [ScrapeGraphAI](https://github.com/ScrapeGraphAI/Scrapegraph-ai)
