@@ -1,0 +1,11 @@
+# dotenv
+/.env
+
+# Mypy
+/.mypy_cache/
+
+# Python virtual environment
+/.venv/
+
+# Visual Studio Code
+/.vscode/
