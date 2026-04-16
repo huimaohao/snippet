@@ -12,6 +12,12 @@
 
 ## Unified Interface
 
+### [LangChain](https://github.com/langchain-ai/langchain)
+
+- 使用 `langchain_openai.ChatOpenAI` 调用 `qwen` 模型时，响应的 `message` 中缺少推理内容
+- 官方的 `langchain_community` 中的 `ChatTongyi` 基于 `DashScope` 实现，虽然传入参数 `model_kwargs={"enable_thinking": True}`，但是仍然存在上述问题
+- 非官方的 `langchain_qwq.ChatQwen` 基于 `langchain_openai.ChatOpenAI` 实现，所以也存在上述问题
+
 ### [LiteLLm](https://github.com/BerriAI/litellm)
 
 - 试图为不同厂家的不同模型提供统一的与 `OpenAI` 相同格式的接口
@@ -34,5 +40,6 @@
 
 ### Unified Interface
 
+- [LangChain](https://github.com/langchain-ai/langchain)
 - [LiteLLm](https://github.com/BerriAI/litellm)
 - [Ollama](https://github.com/ollama/ollama-python)
