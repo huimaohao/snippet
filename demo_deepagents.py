@@ -3,9 +3,11 @@
 ``` Shell
 pip install deepagents
 
+pip install langchain-daytona
 pip install langchain-openai
-pip install tavily-python
+
 pip install python-dotenv
+pip install tavily-python
 ```
 
 """
@@ -15,21 +17,30 @@ import os
 import pprint
 
 from deepagents import create_deep_agent, DeepAgentState
+from deepagents.backends import StateBackend, StoreBackend
+from deepagents.backends.filesystem import FilesystemBackend
+from deepagents.backends.utils import create_file_data
 
 from langchain_core.utils.uuid import uuid7
 
 from langchain.chat_models import init_chat_model
 from langchain.tools import tool, ToolRuntime
 
+from langchain_daytona import DaytonaSandbox
+
 from langgraph.checkpoint.memory import MemorySaver
+from langgraph.store.memory import InMemoryStore
 from langgraph.types import Command
 
 from dataclasses import dataclass
+from daytona import Daytona
 from dotenv import load_dotenv
 from tavily import TavilyClient
 from typing import Literal
+from urllib.request import urlopen
 
 load_dotenv()
+
 
 model = init_chat_model(
     model="qwen3.7-max",
@@ -350,6 +361,125 @@ def demo__human_in_the_loop():
         pprint.pprint(interrupt)
 
 
+def demo__skills__StateBackend():
+    func_name = inspect.currentframe().f_code.co_name
+    print_title(func_name, bgn="\n", end="\n")
+
+    backend = StateBackend()
+
+    skill_url = "https://raw.githubusercontent.com/langchain-ai/deepagents/refs/heads/main/libs/cli/examples/skills/langgraph-docs/SKILL.md"
+    with urlopen(skill_url) as response:
+        skill_content = response.read().decode("utf-8")
+
+    skills_files = {
+        "/skills/langgraph-docs/SKILL.md": create_file_data(skill_content),
+    }
+
+    agent = create_deep_agent(
+        model=model,
+        backend=backend,
+        skills=["/skills/"],
+    )
+    write_graph(agent, func_name)
+
+    result = agent.invoke(
+        {
+            "messages": [{"role": "user", "content": "What is langgraph?"}],
+            # Seed the default StateBackend's in-state filesystem (virtual paths must start with "/").
+            "files": skills_files,
+        },
+        config={"configurable": {"thread_id": "12345"}},
+    )
+    for message in result["messages"]:
+        message.pretty_print()
+
+
+def demo__skills__StoreBackend():
+    func_name = inspect.currentframe().f_code.co_name
+    print_title(func_name, bgn="\n", end="\n")
+
+    store = InMemoryStore()
+    backend = StoreBackend(namespace=lambda _rt: ("filesystem",))
+
+    skill_url = "https://raw.githubusercontent.com/langchain-ai/deepagents/refs/heads/main/libs/cli/examples/skills/langgraph-docs/SKILL.md"
+    with urlopen(skill_url) as response:
+        skill_content = response.read().decode("utf-8")
+
+    store.put(
+        namespace=("filesystem",),
+        key="/skills/langgraph-docs/SKILL.md",
+        value=create_file_data(skill_content),
+    )
+
+    agent = create_deep_agent(
+        model=model,
+        backend=backend,
+        store=store,
+        skills=["/skills/"],
+    )
+    write_graph(agent, func_name)
+
+    result = agent.invoke(
+        {"messages": [{"role": "user", "content": "What is langgraph?"}]},
+        config={"configurable": {"thread_id": "12345"}},
+    )
+    for message in result["messages"]:
+        message.pretty_print()
+
+
+def demo__skills__FilesystemBackend():
+    func_name = inspect.currentframe().f_code.co_name
+    print_title(func_name, bgn="\n", end="\n")
+
+    backend = FilesystemBackend(root_dir="./", virtual_mode=True)
+
+    agent = create_deep_agent(
+        model=model,
+        backend=backend,
+        skills=["./skills/"],
+    )
+    write_graph(agent, func_name)
+
+    result = agent.invoke(
+        {"messages": [{"role": "user", "content": "What is langgraph?"}]},
+        config={"configurable": {"thread_id": "12345"}},
+    )
+    for message in result["messages"]:
+        message.pretty_print()
+
+
+def demo_sandbox():
+    func_name = inspect.currentframe().f_code.co_name
+    print_title(func_name, bgn="\n", end="\n")
+
+    sandbox = Daytona().create()
+    backend = DaytonaSandbox(sandbox=sandbox)
+
+    agent = create_deep_agent(
+        model=model,
+        system_prompt="You are a Python coding assistant with sandbox access.",
+        backend=backend,
+    )
+    write_graph(agent, func_name)
+
+    try:
+        result = agent.invoke(
+            {
+                "messages": [
+                    {
+                        "role": "user",
+                        "content": "Create a small Python package and run pytest",
+                    }
+                ]
+            }
+        )
+        for message in result["messages"]:
+            message.pretty_print()
+
+    finally:
+        sandbox.stop()
+
+
 if __name__ == "__main__":
     demo__overview()
     demo__quickstart()
@@ -360,3 +490,9 @@ if __name__ == "__main__":
     demo__subagent()
 
     demo__human_in_the_loop()
+
+    demo__skills__StateBackend()
+    demo__skills__StoreBackend()
+    demo__skills__FilesystemBackend()
+
+    demo_sandbox()
