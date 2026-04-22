@@ -12,6 +12,11 @@
 
 ## Unified Interface
 
+### [Instructor](https://github.com/567-labs/instructor)
+
+- 基于 `Pydantic` 来提供统一的结构化输出的接口
+- `llm_validator()` 中的 `client` 参数已经提供过要调用的模型，但仍需再次传递 `model` 参数
+
 ### [LangChain](https://github.com/langchain-ai/langchain)
 
 - 使用 `langchain_openai.ChatOpenAI` 调用 `qwen` 模型时，响应的 `message` 中缺少推理内容
@@ -40,6 +45,7 @@
 
 ### Unified Interface
 
+- [Instructor](https://github.com/567-labs/instructor)
 - [LangChain](https://github.com/langchain-ai/langchain)
 - [LiteLLm](https://github.com/BerriAI/litellm)
 - [Ollama](https://github.com/ollama/ollama-python)
