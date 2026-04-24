@@ -28,4 +28,5 @@ pip uninstall -r requirements.txt -y
 
 ---
 
+- [Pydantic](https://github.com/pydantic/pydantic)
 - [python-dotenv](https://github.com/theskumar/python-dotenv)
